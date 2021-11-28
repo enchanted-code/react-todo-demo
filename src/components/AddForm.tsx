@@ -1,7 +1,16 @@
 import React from 'react';
 
-class AddForm extends React.Component {
-  constructor(props) {
+type FormProps = {
+  onTodoChange: Function;
+};
+
+type FormState = {
+  title: string;
+  description: string;
+};
+
+class AddForm extends React.Component<FormProps, FormState> {
+  constructor(props: FormProps) {
     super(props);
     this.state = { title: "", description: "" };
 
@@ -10,15 +19,15 @@ class AddForm extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleTitleChange(event) {
+  handleTitleChange(event: React.ChangeEvent<HTMLInputElement>) {
     this.setState({ title: event.target.value });
   }
 
-  handleDescriptionChange(event) {
+  handleDescriptionChange(event: React.ChangeEvent<HTMLTextAreaElement>) {
     this.setState({ description: event.target.value });
   }
 
-  handleSubmit(event) {
+  handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     this.props.onTodoChange(this.state.title, this.state.description);
     this.setState({ title: "", description: "" });
     event.preventDefault();

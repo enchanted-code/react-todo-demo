@@ -1,10 +1,15 @@
 import React from 'react';
 import { getRandomId } from '../core/helpers'
+import { TodoItem } from '../core/types';
 import AddForm from './AddForm';
 import TodoList from './TodoList';
 
-class App extends React.Component {
-  constructor(props) {
+type AppState = {
+  todoList: Array<TodoItem>;
+};
+
+class App extends React.Component<any, AppState> {
+  constructor(props: any) {
     super(props);
 
     this.handleTodoChange = this.handleTodoChange.bind(this);
@@ -15,7 +20,7 @@ class App extends React.Component {
     }
   }
 
-  findTodoById(todoId) {
+  findTodoById(todoId: string) {
     for (let i = 0; i < this.state.todoList.length; i++) {
       const element = this.state.todoList[i];
       if (element.id === todoId) { return i; }
@@ -23,7 +28,7 @@ class App extends React.Component {
     return -1;
   }
 
-  handleTodoChange(title, description) {
+  handleTodoChange(title: string, description: string) {
     const todoId = getRandomId();
     this.state.todoList.push({
       id: todoId,
@@ -34,7 +39,7 @@ class App extends React.Component {
     console.debug("todo added with id: " + todoId);
   }
 
-  handleTodoDelete(todoId) {
+  handleTodoDelete(todoId: string) {
     let foundIndex = this.findTodoById(todoId);
     if (foundIndex !== -1) {
       this.state.todoList.splice(foundIndex, 1);
